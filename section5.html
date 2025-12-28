@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список джерел | Нейронні мережі в мовних технологіях</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-card {
+            text-align: left;
+            position: relative;
+            max-width: 1400px;
+            width: 95%;
+            padding: 50px 60px;
+            margin: 0 auto;
+        }
+
+        .title-blue {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: var(--dark-blue);
+        }
+
+        .title-blue::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-blue), var(--dark-blue));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .intro-text {
+            text-align: center;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            font-size: 1.15rem;
+            color: #555;
+            padding: 0 50px;
+        }
+
+        .sources-category {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 3px solid var(--soft-blue);
+        }
+
+        .sources-category:last-child {
+            border-bottom: none;
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            color: var(--dark-blue);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+            position: relative;
+        }
+
+        .category-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 80px;
+            height: 2px;
+            background: var(--accent-blue);
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 4px solid var(--soft-blue);
+            background: rgba(227, 242, 253, 0.2);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .centered-links-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .centered-source-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.1);
+            border: 2px solid var(--soft-blue);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 350px; 
+            min-width: 300px;
+        }
+
+        .centered-source-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .centered-source-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--dark-blue));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .centered-source-card:hover::before {
+            opacity: 1;
+        }
+
+        .source-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.1);
+            border: 2px solid var(--soft-blue);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .source-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .source-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--dark-blue));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .source-card:hover::before {
+            opacity: 1;
+        }
+
+        .source-number {
+            display: inline-block;
+            background: var(--soft-blue);
+            color: var(--dark-blue);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .centered-source-card:hover .source-number,
+        .source-card:hover .source-number {
+            background: var(--accent-blue);
+            color: white;
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .source-title {
+            color: var(--dark-blue);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .source-description {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .source-link {
+            display: inline-block;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 18px;
+            border-radius: 20px;
+            background: var(--soft-blue);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 168, 255, 0.2);
+            cursor: pointer !important;
+            position: relative;
+            z-index: 10;
+        }
+
+        .source-link:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.25);
+            text-decoration: none;
+        }
+
+        .source-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .source-tag {
+            background: rgba(227, 242, 253, 0.5);
+            color: var(--dark-blue);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 168, 255, 0.1);
+        }
+
+        .source-importance {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(255, 140, 0, 0.2);
+        }
+
+        .correlation-table {
+            margin-top: 60px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.03) 0%, rgba(227, 242, 253, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--soft-blue);
+        }
+
+        .table-title {
+            text-align: center;
+            color: var(--dark-blue);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .correlation-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .correlation-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--soft-blue);
+            transition: all 0.3s ease;
+            width: 320px; 
+            min-width: 280px;
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.08);
+        }
+
+        .correlation-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.15);
+            border-color: var(--accent-blue);
+        }
+
+        .correlation-topic {
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .correlation-sources {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .section-decoration {
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent-blue), transparent);
+            margin: 40px auto;
+            max-width: 400px;
+        }
+
+        .centered-source-card::before,
+        .source-card::before {
+            pointer-events: none;
+        }
+
+        @media (max-width: 1200px) {
+            .sources-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .main-card {
+                padding: 40px 50px;
+            }
+            
+            .centered-links-container {
+                gap: 20px;
+            }
+            
+            .correlation-container {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .centered-source-card,
+            .correlation-item {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-card {
+                padding: 35px 40px;
+                width: 98%;
+            }
+            
+            .title-blue {
+                font-size: 2rem;
+            }
+            
+            .sources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .intro-text {
+                padding: 0 20px;
+            }
+            
+            .category-title {
+                font-size: 1.6rem;
+            }
+            
+            .centered-links-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .centered-source-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .correlation-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .correlation-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-card {
+                padding: 30px 35px;
+            }
+            
+            .title-blue {
+                font-size: 1.8rem;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+            
+            .source-card,
+            .centered-source-card {
+                padding: 20px;
+            }
+            
+            .correlation-table {
+                padding: 25px 20px;
+            }
+            
+            .correlation-item {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-card {
+                padding: 25px 30px;
+            }
+            
+            .title-blue {
+                font-size: 1.6rem;
+            }
+            
+            .intro-text {
+                font-size: 1.05rem;
+                padding: 0 10px;
+            }
+            
+            .category-title {
+                font-size: 1.4rem;
+            }
+            
+            .source-title {
+                font-size: 1.2rem;
+            }
+            
+            .source-link {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .centered-source-card {
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 20px 25px;
+                border-radius: 20px;
+            }
+            
+            .title-blue {
+                font-size: 1.5rem;
+            }
+            
+            .correlation-topic {
+                font-size: 1.1rem;
+            }
+        }
+        .sources-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--soft-blue);
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas-background"></canvas>
+
+    <header>
+        <div class="logo-area">
+            <img src="1.jpg" alt="Logo" class="main-logo-animated">
+        </div>
+        <nav>
+            <a href="index.html" class="nav-item">Головна</a>
+            <a href="section1.html" class="nav-item">Розділ 1</a>
+            <a href="section2.html" class="nav-item">Розділ 2</a>
+            <a href="section3.html" class="nav-item">Розділ 3</a>
+            <a href="section4.html" class="nav-item">Висновок</a>
+            <a href="author.html" class="nav-item">Про автора</a>
+         </nav>
+        <div class="auth-buttons">
+            <a href="section5.html" class="btn-solid">Джерела</a>
+       </div>
+    </header>
+
+    <main>
+        <section class="main-card">
+            <h1 class="title-blue">Список джерел та літератури</h1>
+            
+            <p class="intro-text">
+                На цій сторінці зібрано всі академічні, технічні та промислові джерела, які були використані для підготовки матеріалів сайту. Кожне джерело відсортовано за тематичними категоріями та містить детальний опис його значення для відповідних розділів дослідження.
+            </p>
+
+            <div class="sources-category">
+                <h2 class="category-title">1. Вступ до NLP та фундаментальні основи</h2>
+                <p class="category-description">
+                    Загальні огляди природної мовної обробки, визначення понять та пояснення ролі штучного інтелекту в сучасних мовних технологіях.
+                </p>
+
+                <div class="centered-links-container">
+                    <div class="centered-source-card">
+                        <div class="source-number">1</div>
+                        <div class="source-importance">ОСНОВНЕ</div>
+                        <h3 class="source-title">Oracle — Natural Language Processing</h3>
+                        <p class="source-description">
+                            Офіційний огляд NLP від Oracle, що детально пояснює, що таке природна мовна обробка, її основні компоненти (NLU, NLG) та практичні застосування в бізнесі та технологіях.
+                        </p>
+                        <a href="https://www.oracle.com/artificial-intelligence/natural-language-processing/" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Вступ</span>
+                            <span class="source-tag">Огляд NLP</span>
+                            <span class="source-tag">Застосування</span>
+                        </div>
+                    </div>
+                    
+                    <div class="centered-source-card">
+                        <div class="source-number">2</div>
+                        <div class="source-importance">ВАЖЛИВЕ</div>
+                        <h3 class="source-title">Pangeanic — Neural Networks in NLP</h3>
+                        <p class="source-description">
+                            Стаття, що детально описує, як нейронні мережі працюють в контексті NLP, пояснюючи їхню архітектуру, навчання та переваги над традиційними методами для оптимізації перекладу та аналізу.
+                        </p>
+                        <a href="https://blog.pangeanic.com/neural-networks-and-how-they-work-in-natural-language-processing" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Нейронні мережі</span>
+                            <span class="source-tag">Принцип роботи</span>
+                            <span class="source-tag">Переклад</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sources-category">
+                <h2 class="category-title">2. Вплив нейронних мереж та їхнє застосування</h2>
+                <p class="category-description">
+                    Академічні дослідження та промислові кейси, що демонструють вплив нейронних мереж на розвиток мовних технологій в освіті, бізнесі, медицині та машинному перекладі.
+                </p>
+                
+                <div class="sources-grid">
+                    <div class="source-card">
+                        <div class="source-number">3</div>
+                        <div class="source-importance">АКАДЕМІЧНЕ</div>
+                        <h3 class="source-title">ScienceDirect — Advancements in NLP</h3>
+                        <p class="source-description">
+                            Наукова стаття, що аналізує останні досягнення в NLP, зокрема трансформери та глибоке навчання, та їхній вплив на різні галузі, такі як освіта, бізнес і медицина.
+                        </p>
+                        <a href="https://www.sciencedirect.com/science/article/pii/S2772503024000598" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Наукове дослідження</span>
+                            <span class="source-tag">Трансформери</span>
+                            <span class="source-tag">Застосування</span>
+                        </div>
+                    </div>
+                    
+                    <div class="source-card">
+                        <div class="source-number">4</div>
+                        <div class="source-importance">ІСТОРИЧНЕ</div>
+                        <h3 class="source-title">Google AI — Neural Machine Translation</h3>
+                        <p class="source-description">
+                            Оригінальний допис блогу Google AI 2016 року про запуск нейронної машинного перекладу (GNMT), що ознаменував революцію в Google Translate та показав переваги контекстного перекладу.
+                        </p>
+                        <a href="https://ai.googleblog.com/2016/09/a-neural-network-for-machine.html" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Google Translate</span>
+                            <span class="source-tag">Машинний переклад</span>
+                            <span class="source-tag">Технологічний прорив</span>
+                        </div>
+                    </div>
+                    
+                    <div class="source-card">
+                        <div class="source-number">5</div>
+                        <div class="source-importance">СПЕЦІАЛІЗОВАНЕ</div>
+                        <h3 class="source-title">MDPI — Neural Networks in Language Learning</h3>
+                        <p class="source-description">
+                            Дослідження про застосування нейронних мереж в мовній освіті, зокрема для персоналізації навчання, забезпечення зворотного зв'язку та підвищення мотивації здобувачів освіти.
+                        </p>
+                        <a href="https://www.mdpi.com/2076-3417/11/4/1742" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Освіта</span>
+                            <span class="source-tag">Навчання мов</span>
+                            <span class="source-tag">Персоналізація</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sources-category">
+                <h2 class="category-title">3. Архітектури нейронних мереж для NLP</h2>
+                <p class="category-description">
+                    Технічні джерела, що описують специфічні архітектури нейронних мереж, розроблені для роботи з послідовними мовними даними.
+                </p>
+                
+                <div class="sources-grid">
+                    <div class="source-card">
+                        <div class="source-number">6</div>
+                        <div class="source-importance">ДОВІДКОВЕ</div>
+                        <h3 class="source-title">Wikipedia — Recurrent Neural Networks</h3>
+                        <p class="source-description">
+                            Детальна стаття про рекурентні нейронні мережі (RNN та BRNN), їхню історію, архітектуру та здатність обробляти послідовні дані, що є критично важливим для розуміння контексту в мові.
+                        </p>
+                        <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">RNN</span>
+                            <span class="source-tag">BRNN</span>
+                            <span class="source-tag">Послідовності</span>
+                        </div>
+                    </div>
+                    
+                    <div class="source-card">
+                        <div class="source-number">7</div>
+                        <div class="source-importance">ФУНДАМЕНТАЛЬНЕ</div>
+                        <h3 class="source-title">Original Paper — Attention Is All You Need</h3>
+                        <p class="source-description">
+                            Оригінальна наукова робота 2017 року, що запровадила архітектуру Трансформер. Це джерело є основою для сучасних LLM, таких як GPT та BERT, і пояснює механізм уваги.
+                        </p>
+                        <a href="https://arxiv.org/abs/1706.03762" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Трансформер</span>
+                            <span class="source-tag">Механізм уваги</span>
+                            <span class="source-tag">GPT / BERT</span>
+                        </div>
+                    </div>
+                    
+                    <div class="source-card">
+                        <div class="source-number">8</div>
+                        <div class="source-importance">ДОВІДКОВЕ</div>
+                        <h3 class="source-title">Wikipedia — Word Embedding</h3>
+                        <p class="source-description">
+                            Стаття, що пояснює концепцію векторних представлень слів (ембеддингів), їхню історію розвитку та важливість для захоплення семантичної схожості між словами в NLP.
+                        </p>
+                        <a href="https://en.wikipedia.org/wiki/Word_embedding" 
+                           class="source-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                           Перейти до джерела ↗
+                        </a>
+                        <div class="source-tags">
+                            <span class="source-tag">Ембеддинги</span>
+                            <span class="source-tag">Вектори слів</span>
+                            <span class="source-tag">Семантика</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-decoration"></div>
+
+            <div class="correlation-table">
+                <h3 class="table-title">Відповідність джерел до розділів сайту</h3>
+
+                <div class="correlation-container">
+                    <div class="correlation-item">
+                        <div class="correlation-topic">📘 Розділ 1: Важливість нейронних мереж</div>
+                        <p class="correlation-sources"><strong>Основні джерела:</strong> 1 (Oracle), 2 (Pangeanic), 5 (MDPI)<br>
+                        <strong>Для:</strong> вступу, пояснення NLP, ролі ШІ, переваг у мовній освіті.</p>
+                    </div>
+                    
+                    <div class="correlation-item">
+                        <div class="correlation-topic">📗 Розділ 2: Вплив на технології</div>
+                        <p class="correlation-sources"><strong>Основні джерела:</strong> 3 (ScienceDirect), 4 (Google AI)<br>
+                        <strong>Для:</strong> впливу на переклад, застосування в бізнесі/медицині, революції в Google Translate.</p>
+                    </div>
+                    
+                    <div class="correlation-item">
+                        <div class="correlation-topic">📕 Розділ 3: Архітектури мереж</div>
+                        <p class="correlation-sources"><strong>Основні джерела:</strong> 6 (Wikipedia RNN), 7 (Трансформер), 8 (Wikipedia Embeddings)<br>
+                        <strong>Для:</strong> пояснення RNN/BRNN, трансформерів, механізму уваги, ембеддингів.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p class="author-text">*Бордун Вікторія 2КН-25Б*</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

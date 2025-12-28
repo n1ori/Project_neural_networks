@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Висновок | Нейронні мережі в мовних технологіях</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-card {
+            text-align: left;
+            position: relative;
+            max-width: 1200px;
+            width: 90%;
+            padding: 60px 70px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title-blue {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            position: relative;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+
+        .title-blue::after {
+            content: '';
+            display: block;
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-blue), var(--dark-blue));
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        .conclusion-text {
+            text-align: justify;
+            line-height: 1.9;
+            margin-bottom: 40px;
+            font-size: 1.25rem;
+            color: #333;
+            width: 100%;
+            padding: 40px 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1);
+            border: 2px solid var(--soft-blue);
+            position: relative;
+        }
+
+        .conclusion-text::before {
+            content: '"';
+            position: absolute;
+            top: -30px;
+            left: -20px;
+            font-size: 8rem;
+            color: var(--accent-blue);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .conclusion-text::after {
+            content: '"';
+            position: absolute;
+            bottom: -50px;
+            right: -20px;
+            font-size: 8rem;
+            color: var(--accent-blue);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .thanks-text {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin: 40px 0 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 25px 40px;
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.1) 0%, rgba(227, 242, 253, 0.2) 100%);
+            border-radius: 20px;
+            border: 3px solid var(--soft-blue);
+            width: 80%;
+            animation: pulseThanks 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseThanks {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .conclusion-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .decoration-line {
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent-blue), transparent);
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .decoration-icon {
+            color: var(--accent-blue);
+            font-size: 2.5rem;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, var(--soft-blue), white);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-blue);
+            transition: all 0.3s ease;
+        }
+
+        .key-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.2);
+        }
+
+        .key-point h3 {
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .key-point p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .animation-container {
+            margin-top: 50px;
+            padding: 30px;
+            border: 3px solid var(--accent-blue);
+            border-radius: 25px;
+            background: rgba(0, 168, 255, 0.05);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .animation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--dark-blue), var(--accent-blue));
+            animation: shimmer 3s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        .animation-container:hover {
+            background: rgba(0, 168, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.15);
+        }
+
+        @media (max-width: 1200px) {
+            .main-card {
+                padding: 50px 60px;
+            }
+            
+            .conclusion-text {
+                padding: 35px 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-card {
+                padding: 40px 50px;
+                width: 95%;
+            }
+            
+            .title-blue {
+                font-size: 2.2rem;
+            }
+            
+            .conclusion-text {
+                padding: 30px 35px;
+                font-size: 1.15rem;
+            }
+            
+            .thanks-text {
+                font-size: 1.8rem;
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-card {
+                padding: 35px 40px;
+            }
+            
+            .title-blue {
+                font-size: 2rem;
+            }
+            
+            .conclusion-text {
+                padding: 25px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .conclusion-text::before,
+            .conclusion-text::after {
+                display: none;
+            }
+            
+            .thanks-text {
+                font-size: 1.6rem;
+                padding: 20px 30px;
+            }
+            
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-card {
+                padding: 30px 25px;
+            }
+            
+            .title-blue {
+                font-size: 1.8rem;
+            }
+            
+            .conclusion-text {
+                padding: 20px 25px;
+                font-size: 1.05rem;
+            }
+            
+            .thanks-text {
+                font-size: 1.4rem;
+                padding: 15px 25px;
+                margin: 30px 0 40px;
+            }
+            
+            .animation-container {
+                padding: 25px 20px;
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+            
+            .title-blue {
+                font-size: 1.6rem;
+            }
+            
+            .conclusion-text {
+                padding: 20px;
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .thanks-text {
+                font-size: 1.3rem;
+                padding: 15px 20px;
+            }
+        }
+
+        .conclusion-text strong {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .conclusion-text em {
+            color: var(--accent-blue);
+            font-style: italic;
+        }
+
+        .conclusion-text {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conclusion-text::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 95%, rgba(0, 168, 255, 0.05));
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas-background"></canvas>
+
+    <header>
+        <div class="logo-area">
+            <img src="1.jpg" alt="Logo" class="main-logo-animated">
+        </div>
+        <nav>
+            <a href="index.html" class="nav-item">Головна</a>
+            <a href="section1.html" class="nav-item">Розділ 1</a>
+            <a href="section2.html" class="nav-item">Розділ 2</a>
+            <a href="section3.html" class="nav-item">Розділ 3</a>
+            <a href="section4.html" class="nav-item active">Висновок</a>
+            <a href="author.html" class="nav-item">Про автора</a>
+         </nav>
+        <div class="auth-buttons">
+            <a href="section5.html" class="btn-solid">Джерела</a>
+       </div>
+    </header>
+
+    <main>
+        <section class="main-card">
+            <h1 class="title-blue">Висновок</h1>
+            
+            <div class="conclusion-text">
+                <p>У підсумку можна стверджувати, що нейронні мережі стали фундаментом сучасних мовних технологій і суттєво змінили спосіб взаємодії людини з цифровим середовищем. Вони забезпечили якісний прорив у машинному перекладі, розпізнаванні мовлення, мовній освіті та багатьох інших сферах, зробивши ці процеси швидшими, точнішими й доступнішими для широкого кола користувачів.</p>
+                
+                <p>Завдяки здатності працювати з контекстом і великими обсягами даних нейронні мережі не лише автоматизують рутинні завдання, а й підсилюють людські можливості, сприяючи навчанню, професійному розвитку та творчості. Водночас важливо усвідомлювати, що нейронні мережі є інструментом, ефективність якого залежить від відповідального та грамотного використання, що відкриває перспективи для подальшого розвитку мовних технологій у майбутньому.</p>
+            </div>
+
+            <div class="conclusion-decoration">
+                <div class="decoration-line"></div>
+                <div class="decoration-icon">✦</div>
+                <div class="decoration-line"></div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-point">
+                    <h3>Інноваційність</h3>
+                    <p>Нейронні мережі принесли революційні зміни в обробку природної мови, зробивши технології більш інтелектуальними та адаптивними.</p>
+                </div>
+                <div class="key-point">
+                    <h3>Доступність</h3>
+                    <p>Технології стали доступними для мільйонів користувачів, зменшивши мовні бар'єри та сприяючи глобальній комунікації.</p>
+                </div>
+                <div class="key-point">
+                    <h3>Перспективи</h3>
+                    <p>Майбутнє мовних технологій пов'язане з подальшим розвитком нейронних мереж та їх інтеграцією в різні сфери життя.</p>
+                </div>
+            </div>
+
+            <div class="thanks-text">
+                Дякую за увагу!
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-line"></div>
+        <p class="author-text">*Бордун Вікторія 2КН-25Б*</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

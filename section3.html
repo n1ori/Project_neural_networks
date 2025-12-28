@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розділ 3 - Архітектури нейронних мереж | Нейронні мережі</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        .main-card {
+            text-align: left;
+            position: relative;
+            max-width: 1600px;
+            width: 95%;
+            padding: 50px 70px;
+            margin: 0 auto;
+        }
+
+        .title-blue {
+            text-align: left;
+            margin-bottom: 50px;
+            font-size: 2.4rem;
+        }
+
+        .title-blue::after {
+            content: '';
+            display: block;
+            width: 160px;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-blue), var(--dark-blue));
+            margin-top: 20px;
+            border-radius: 3px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 80px;
+            align-items: flex-start;
+            margin-bottom: 50px;
+        }
+
+        .text-content { 
+            flex: 1.5;
+            text-align: left;
+            min-width: 0;
+        }
+
+        .architecture-section {
+            margin-bottom: 60px;
+            padding-bottom: 50px;
+            border-bottom: 3px solid var(--soft-blue);
+            position: relative;
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            min-height: 320px;
+        }
+
+        .architecture-section:last-child {
+            border-bottom: none;
+            margin-bottom: 40px;
+        }
+
+        .section-content {
+            flex: 1.5;
+        }
+
+        .section-title {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .section-text {
+            line-height: 1.9;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            text-align: left;
+        }
+
+        .section-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .source-link {
+            display: inline-block;
+            background: var(--soft-blue);
+            color: var(--dark-blue);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(0, 168, 255, 0.3);
+        }
+
+        .source-link:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.25);
+        }
+
+        .circle-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        .circle-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 8px solid var(--soft-blue);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            background: white;
+        }
+
+        .circle-img:hover {
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 0 35px 60px rgba(0, 168, 255, 0.4);
+            border-color: var(--accent-blue); 
+        }
+
+        .circle-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .circle-img:hover img {
+            transform: scale(1.15);
+        }
+
+        .circle-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+            color: white;
+            padding: 25px 30px 15px;
+            font-size: 1rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s ease;
+            z-index: 2;
+            text-align: center;
+            font-weight: 700;
+            border-radius: 0 0 50% 50%;
+            letter-spacing: 1px;
+        }
+
+        .circle-img:hover .circle-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .circle-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(0, 168, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .circle-img::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .animation-container {
+            margin-top: 70px;
+            padding: 40px;
+            border: 4px dashed var(--accent-blue);
+            border-radius: 30px;
+            background: rgba(0, 168, 255, 0.05);
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .animation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--dark-blue), var(--accent-blue));
+            animation: shimmer 3s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -300px 0; }
+            100% { background-position: 300px 0; }
+        }
+
+        .animation-container:hover {
+            background: rgba(0, 168, 255, 0.1);
+            border-style: solid;
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px rgba(0, 168, 255, 0.25);
+        }
+
+        @media (max-width: 1600px) {
+            .main-card {
+                max-width: 1500px;
+            }
+            
+            .circle-img {
+                width: 260px;
+                height: 260px;
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .main-card {
+                max-width: 1300px;
+                padding: 45px 60px;
+            }
+            
+            .content-wrapper {
+                gap: 60px;
+            }
+            
+            .architecture-section {
+                gap: 50px;
+                min-height: 300px;
+            }
+            
+            .circle-img {
+                width: 240px;
+                height: 240px;
+                border-width: 7px;
+            }
+            
+            .title-blue {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .main-card {
+                max-width: 1100px;
+                padding: 40px 50px;
+            }
+            
+            .content-wrapper {
+                gap: 50px;
+            }
+            
+            .architecture-section {
+                gap: 40px;
+                min-height: 280px;
+            }
+            
+            .circle-img {
+                width: 220px;
+                height: 220px;
+                border-width: 6px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .section-text {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .main-card {
+                max-width: 1000px;
+            }
+            
+            .content-wrapper {
+                gap: 40px;
+            }
+            
+            .architecture-section {
+                gap: 35px;
+            }
+            
+            .circle-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .architecture-section {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+                min-height: auto;
+                padding-bottom: 40px;
+            }
+            
+            .section-content {
+                width: 100%;
+                order: 2;
+            }
+            
+            .circle-image-container {
+                order: 1;
+                margin-bottom: 30px;
+                width: 100%;
+            }
+            
+            .circle-img {
+                width: 260px;
+                height: 260px;
+            }
+            
+            .section-title {
+                text-align: center;
+            }
+            
+            .section-text {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-card {
+                padding: 35px 40px;
+            }
+            
+            .title-blue {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .circle-img {
+                width: 240px;
+                height: 240px;
+                border-width: 6px;
+            }
+            
+            .architecture-section {
+                margin-bottom: 50px;
+                padding-bottom: 35px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-card {
+                padding: 30px 35px;
+                width: 100%;
+            }
+            
+            .circle-img {
+                width: 220px;
+                height: 220px;
+                border-width: 5px;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .section-text {
+                font-size: 1.1rem;
+                line-height: 1.8;
+            }
+            
+            .source-link {
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
+            
+            .animation-container {
+                padding: 30px 25px;
+                margin-top: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 25px 30px;
+                border-radius: 25px;
+            }
+            
+            .circle-img {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+            }
+            
+            .title-blue {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .section-text {
+                font-size: 1.05rem;
+            }
+        }
+
+        .section-text strong {
+            color: var(--dark-blue);
+            font-weight: 700;
+        }
+
+        .architecture-section {
+            background: rgba(255, 255, 255, 0.75);
+            padding: 40px;
+            border-radius: 25px;
+            border: 2px solid var(--soft-blue);
+            transition: all 0.4s ease;
+        }
+
+        .architecture-section:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--accent-blue);
+            transform: translateX(8px) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.15);
+        }
+
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .images-sidebar,
+        .top-rect-img,
+        .bottom-rect-img {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas-background"></canvas>
+
+    <header>
+        <div class="logo-area">
+            <img src="1.jpg" alt="Logo" class="main-logo-animated">
+        </div>
+        <nav>
+            <a href="index.html" class="nav-item">Головна</a>
+            <a href="section1.html" class="nav-item">Розділ 1</a>
+            <a href="section2.html" class="nav-item">Розділ 2</a>
+            <a href="section3.html" class="nav-item active">Розділ 3</a>
+            <a href="section4.html" class="nav-item">Висновок</a>
+            <a href="author.html" class="nav-item">Про автора</a>
+        </nav>
+        <div class="auth-buttons">
+            <a href="section5.html" class="btn-solid">Джерела</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-card">
+            <h1 class="title-blue">Архітектури нейронних мереж, що використовуються в мовних технологіях</h1>
+            
+            <div class="content-wrapper">
+                <div class="text-content">
+
+                    <div class="architecture-section">
+                        <div class="section-content">
+                            <h2 class="section-title">3.1. Рекурентні нейронні мережі (RNN та BRNN)</h2>
+                            <p class="section-text">
+                                <strong>RNN здатні обробляти послідовні дані</strong> (напр., текст чи мову), оскільки вони зберігають інформацію про попередні слова у внутрішньому стані, що важливо для розуміння контексту в реченні.
+                            </p>
+                            <p class="section-text">
+                                <strong>Покращений варіант — Bidirectional RNN (BRNN)</strong> — враховує контекст як зі сторони минулого, так і майбутнього тексту. Це дозволяє отримувати більш точні результати при аналізі та обробці мовних даних.
+                            </p>
+                            <a href="https://uk.wikipedia.org/wiki/Рекурентна_нейронна_мережа" class="source-link" target="_blank">Вікіпедія ↗</a>
+                        </div>
+                        
+                        <div class="circle-image-container">
+                            <div class="circle-img">
+                                <img src="6.jpg" 
+                                     alt="Рекурентні нейронні мережі">
+                                <div class="circle-caption">RNN та BRNN</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="architecture-section">
+                        <div class="section-content">
+                            <h2 class="section-title">3.2. Трансформери та увага</h2>
+                            <p class="section-text">
+                                <strong>Сучасні системи NLP</strong>, включно з GPT, BERT, T5 та іншими, базуються на трансформерах — архітектурі, що дозволяє моделі фокусувати увагу на різних частинах тексту одночасно.
+                            </p>
+                            <p class="section-text">
+                                <strong>Це вирішує проблеми</strong>, притаманні RNN (повільність, обмежена пам'ять), і забезпечує найкращі результати у розумінні мови та генерації тексту. Механізм уваги дозволяє моделі "дивитися" на всі частини вхідної послідовності одночасно.
+                            </p>
+                            <a href="https://artintelly.com.ua/yak-suchasni-nlp-algoritmi-pokrashuyut-modeli-ua/" class="source-link" target="_blank">artintelly.com ↗</a>
+                        </div>
+
+                        <div class="circle-image-container">
+                            <div class="circle-img">
+                                <img src="7.png" 
+                                     alt="Трансформери та увага" style="transform: scale(1.15);">
+                                <div class="circle-caption">Трансформери</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="architecture-section">
+                        <div class="section-content">
+                            <h2 class="section-title">3.3. Вектори слів та ембедінги</h2>
+                            <p class="section-text">
+                                <strong>Ще один важливий компонент — ембедінги</strong>, числові вектори, що представляють слова чи фрази. Вони дозволяють мережам захоплювати семантичну схожість між словами.
+                            </p>
+                            <p class="section-text">
+                                <strong>Це значно покращує якість</strong> класифікації, перекладу і пошуку. Ембедінги перетворюють слова в багатовимірні вектори, де семантично схожі слова мають схожі векторні представлення.
+                            </p>
+                            <a href="https://en.wikipedia.org/wiki/Word_embedding" class="source-link" target="_blank">Детальніше про ембедінги ↗</a>
+                        </div>
+
+                        <div class="circle-image-container">
+                            <div class="circle-img">
+                                <img src="8.jpg" 
+                                     alt="Вектори слів та ембедінги">
+                                <div class="circle-caption">Вектори слів</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-line"></div>
+        <p class="author-text">*Бордун Вікторія 2КН-25Б*</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

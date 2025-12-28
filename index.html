@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нейронні мережі - Проєкт</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        .main-content-wrapper {
+            position: relative;
+            min-height: 500px;
+            margin-bottom: 50px;
+        }
+        
+        .text-block {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 40px rgba(0, 168, 255, 0.1);
+            border: 2px solid rgba(0, 168, 255, 0.1);
+        }
+        
+        .text-block p {
+            text-align: justify;
+            line-height: 1.9;
+            margin-bottom: 25px;
+            font-size: 1.15rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .background-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .bg-image-1 {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 320px;
+            height: 220px;
+            border-radius: 18px;
+            overflow: hidden;
+            opacity: 0.85;
+            filter: brightness(0.92);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bg-image-1:hover {
+            opacity: 0.95;
+            filter: brightness(1);
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 25px 50px rgba(0, 168, 255, 0.25);
+        }
+
+        .bg-image-2 {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 380px;
+            height: 240px;
+            border-radius: 18px;
+            overflow: hidden;
+            opacity: 0.85;
+            filter: brightness(0.92);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bg-image-2:hover {
+            opacity: 0.95;
+            filter: brightness(1);
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 25px 50px rgba(0, 168, 255, 0.25);
+        }
+        
+        .bg-image-1 img,
+        .bg-image-2 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        
+        .bg-image-1:hover img,
+        .bg-image-2:hover img {
+            transform: scale(1.1);
+        }
+
+        .bg-image-1::after,
+        .bg-image-2::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.15) 0%, transparent 60%);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .text-decoration {
+            position: absolute;
+            z-index: 2;
+        }
+        
+        .decoration-1 {
+            top: 15px;
+            right: 15px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 168, 255, 0.15) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .decoration-2 {
+            bottom: 15px;
+            left: 15px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(227, 242, 253, 0.4) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .animation-container {
+            display: none;
+        }
+
+        .page-plan {
+            margin-top: 60px;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.05) 0%, rgba(227, 242, 253, 0.15) 100%);
+            border-radius: 25px;
+            border: 2px solid var(--soft-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-title {
+            text-align: center;
+            color: var(--dark-blue);
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .plan-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-blue), var(--dark-blue));
+            border-radius: 2px;
+        }
+        
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .plan-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.08);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.2);
+        }
+        
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--dark-blue));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .plan-card:hover::before {
+            opacity: 1;
+        }
+        
+        .plan-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--soft-blue);
+            color: var(--dark-blue);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 50px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover .plan-number {
+            background: var(--accent-blue);
+            color: white;
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .plan-card h3 {
+            color: var(--dark-blue);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .plan-card p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .plan-link {
+            display: inline-block;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 25px;
+            background: var(--soft-blue);
+        }
+        
+        .plan-link:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.25);
+        }
+
+        .plan-decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .plan-deco-1 {
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 168, 255, 0.08) 0%, transparent 70%);
+        }
+        
+        .plan-deco-2 {
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(227, 242, 253, 0.3) 0%, transparent 70%);
+        }
+
+        @media (max-width: 1200px) {
+            .bg-image-1 {
+                width: 280px;
+                height: 190px;
+            }
+            
+            .bg-image-2 {
+                width: 330px;
+                height: 210px;
+            }
+            
+            .plan-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .main-content-wrapper {
+                min-height: 650px;
+            }
+            
+            .bg-image-1,
+            .bg-image-2 {
+                position: relative;
+                width: 100%;
+                max-width: 450px;
+                height: 220px;
+                margin: 25px auto;
+                top: auto;
+                left: auto;
+                bottom: auto;
+                right: auto;
+                opacity: 0.9;
+                box-shadow: 0 15px 30px rgba(0, 168, 255, 0.2);
+            }
+            
+            .bg-image-1 {
+                margin-bottom: 15px;
+            }
+            
+            .background-images {
+                position: relative;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+                margin-top: 35px;
+            }
+            
+            .text-block {
+                background: rgba(255, 255, 255, 0.92);
+                margin-bottom: 40px;
+                padding: 35px;
+            }
+            
+            .decoration-1,
+            .decoration-2 {
+                display: none;
+            }
+            
+            .page-plan {
+                padding: 40px 30px;
+                margin-top: 50px;
+            }
+            
+            .plan-title {
+                font-size: 1.8rem;
+                margin-bottom: 35px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .text-block {
+                padding: 30px;
+            }
+            
+            .bg-image-1,
+            .bg-image-2 {
+                height: 200px;
+                max-width: 400px;
+            }
+            
+            .text-block p {
+                font-size: 1.1rem;
+            }
+            
+            .plan-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .plan-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .text-block {
+                padding: 25px;
+                border-radius: 20px;
+            }
+            
+            .bg-image-1,
+            .bg-image-2 {
+                height: 180px;
+                max-width: 100%;
+                border-radius: 15px;
+            }
+            
+            .text-block p {
+                font-size: 1.05rem;
+                line-height: 1.7;
+            }
+            
+            .page-plan {
+                padding: 35px 25px;
+                margin-top: 40px;
+                border-radius: 20px;
+            }
+            
+            .plan-title {
+                font-size: 1.6rem;
+            }
+            
+            .plan-card {
+                padding: 25px 20px;
+            }
+            
+            .plan-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .text-block {
+                padding: 20px;
+                border-radius: 18px;
+            }
+            
+            .bg-image-1,
+            .bg-image-2 {
+                height: 160px;
+                border-radius: 12px;
+            }
+            
+            .text-block p {
+                font-size: 1rem;
+            }
+            
+            .page-plan {
+                padding: 30px 20px;
+                border-radius: 18px;
+            }
+            
+            .plan-title {
+                font-size: 1.5rem;
+                margin-bottom: 30px;
+            }
+            
+            .plan-number {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                line-height: 45px;
+            }
+            
+            .plan-card h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas-background"></canvas>
+
+    <header>
+        <div class="logo-area">
+            <img src="1.jpg" alt="Logo" class="main-logo-animated">
+        </div>
+        <nav>
+            <a href="index.html" class="nav-item active">Головна</a>
+            <a href="section1.html" class="nav-item">Розділ 1</a>
+            <a href="section2.html" class="nav-item">Розділ 2</a>
+            <a href="section3.html" class="nav-item">Розділ 3</a>
+            <a href="section4.html" class="nav-item">Висновок</a>
+            <a href="author.html" class="nav-item">Про автора</a>
+        </nav>
+        <div class="auth-buttons">
+            <a href="section5.html" class="btn-solid">Джерела</a>
+       </div>
+    </header>
+
+    <main>
+        <section class="main-card">
+            <h1 class="title-blue">Використання нейронних мереж в мовних технологіях</h1>
+
+                <div class="text-block">
+                    <p>У сучасному світі мовні технології стають невід'ємною частиною нашого повсякдення — від голосових помічників до систем автоматичного перекладу та інтелектуальних пошукових алгоритмів. У центрі цих технологій стоять нейронні мережі — інноваційні моделі, здатні навчатися, аналізувати та створювати людське мовлення. Завдяки їм машини починають розуміти нас точніше, відповідати природніше й допомагати ефективніше.
+Мій сайт присвячений саме тому, як нейронні мережі впливають на роботу з мовою, спрощують складні процеси та відкривають нові можливості у різних сферах діяльності.</p>
+                    <p>Моя мета — донести до людей, що нейронні мережі здатні істотно оптимізувати нашу роботу й повсякденне життя. На прикладі мовних технологій я прагну показати, як штучний інтелект може брати на себе рутинні завдання, підсилювати наші можливості, економити час і робити спілкування з цифровим світом простішим і комфортнішим.
+Також я хочу наголосити, що нейронні мережі продовжують стрімко розвиватися: кожен рік вони стають точнішими, гнучкішими та потужнішими. І цей розвиток відкриває перед нами ще більше перспектив — як для навчання, так і для професійного й творчого зростання. Але треба розуміти, що вони є тільки інструментом і вміти їх використовувати, а також не зловживати ним.</p>
+                </div>
+            </div>
+
+            <div class="page-plan">
+                <h2 class="plan-title">План вивчення теми</h2>
+                
+                <div class="plan-grid">
+                    <div class="plan-card">
+                        <div class="plan-number">01</div>
+                        <h3>Важливість нейронних мереж</h3>
+                        <p>Розуміння значення нейронних мереж у сучасних мовних технологіях та їх вплив на розвиток штучного інтелекту.</p>
+                        <a href="section1.html" class="plan-link">Перейти →</a>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-number">02</div>
+                        <h3>Вплив на технології</h3>
+                        <p>Аналіз впливу нейронних мереж на розвиток мовних технологій та їх застосування в різних сферах життя.</p>
+                        <a href="section2.html" class="plan-link">Перейти →</a>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-number">03</div>
+                        <h3>Архітектури мереж</h3>
+                        <p>Огляд основних архітектур нейронних мереж, що використовуються в обробці природної мови.</p>
+                        <a href="section3.html" class="plan-link">Перейти →</a>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-number">04</div>
+                        <h3>Висновок та перспективи</h3>
+                        <p>Підсумки дослідження та перспективи розвитку нейронних мереж у майбутньому.</p>
+                        <a href="section4.html" class="plan-link">Перейти →</a>
+                    </div>
+                </div>
+                
+                <div class="plan-decoration plan-deco-1"></div>
+                <div class="plan-decoration plan-deco-2"></div>
+            </div>
+
+            <div class="animation-container">
+                <img src="2.jpg" alt="AI Brain Animation" class="neural-animation">
+                <p class="caption">AI Brain Animation</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p class="author-text">*Бордун Вікторія 2КН-25Б*</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
