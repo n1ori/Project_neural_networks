@@ -6,6 +6,7 @@
     <title>Про автора | Нейронні мережі в мовних технологіях</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Стилі для сторінки "Про автора" */
         .main-card {
             text-align: center;
             position: relative;
@@ -38,6 +39,7 @@
             border-radius: 2px;
         }
 
+        /* Контейнер з інформацією */
         .author-container {
             display: flex;
             flex-direction: column;
@@ -69,6 +71,7 @@
             object-fit: cover;
         }
 
+        /* Основний блок інформації */
         .author-info {
             text-align: center;
             max-width: 800px;
@@ -96,6 +99,7 @@
             text-align: left;
         }
 
+        /* Контактна інформація */
         .contact-info {
             background: linear-gradient(135deg, rgba(227, 242, 253, 0.7), rgba(255, 255, 255, 0.9));
             padding: 30px;
@@ -160,6 +164,8 @@
             font-weight: 600;
             word-break: break-all;
         }
+
+        /* Інформація про кафедру */
         .department-info {
             background: linear-gradient(135deg, rgba(0, 168, 255, 0.05), rgba(227, 242, 253, 0.3));
             padding: 40px;
@@ -217,6 +223,7 @@
             text-decoration: underline;
         }
 
+        /* Кнопки дій */
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -260,6 +267,8 @@
             background: var(--soft-blue);
             transform: translateY(-5px);
         }
+
+        /* Соціальні мережі */
         .social-links {
             display: flex;
             justify-content: center;
@@ -287,6 +296,7 @@
             transform: translateY(-5px) scale(1.1);
         }
 
+        /* Декоративні елементи */
         .decoration-line {
             height: 3px;
             background: linear-gradient(to right, transparent, var(--accent-blue), transparent);
@@ -294,6 +304,7 @@
             max-width: 400px;
         }
 
+        /* Адаптивність */
         @media (max-width: 992px) {
             .main-card {
                 padding: 50px 35px;
@@ -402,11 +413,11 @@
             <a href="section1.html" class="nav-item">Розділ 1</a>
             <a href="section2.html" class="nav-item">Розділ 2</a>
             <a href="section3.html" class="nav-item">Розділ 3</a>
-            <a href="section4.html" class="nav-item">Висновок</a>
+            <a href="section4.html" class="nav-item">Висновки</a>
             <a href="author.html" class="nav-item active">Про автора</a>
         </nav>
         <div class="auth-buttons">
-            <a href="section5.html" class="nav-item">Джерела</a>
+            <a href="section5.html" class="btn-solid">Джерела</a>
         </div>
     </header>
 
@@ -415,10 +426,12 @@
             <h1 class="title-blue">Про автора</h1>
             
             <div class="author-container">
+                <!-- Аватар автора -->
                 <div class="author-avatar">
                     <img src="9.jpg" alt="Вікторія Бордун">
                 </div>
-
+                
+                <!-- Основна інформація -->
                 <div class="author-info">
                     <h2 class="author-name">Вікторія Бордун</h2>
                     <p class="author-title">Студентка ВНТУ, ФІІТА, кафедра комп'ютерних наук</p>
@@ -433,6 +446,7 @@
                 </div>
             </div>
             
+            <!-- Контактна інформація -->
             <div class="contact-info">
                 <h3 class="contact-title">Мої контакти</h3>
                 <div class="contact-items">
@@ -453,9 +467,11 @@
                     </div>
                 </div>
             </div>
-
+            
+            <!-- Декоративна лінія -->
             <div class="decoration-line"></div>
-
+            
+            <!-- Інформація про кафедру -->
             <div class="department-info">
                 <h3 class="department-title">Кафедра комп'ютерних наук ВНТУ</h3>
                 
@@ -474,8 +490,7 @@
                     <p><strong>Веб-сайт:</strong> <a href="https://vntu.edu.ua" target="_blank">https://vntu.edu.ua</a></p>
                 </div>
             </div>
-        </section>
-    </main>
+            
 
     <footer class="site-footer">
         <div class="footer-line"></div>
